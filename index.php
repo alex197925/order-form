@@ -23,7 +23,15 @@ function whatIsHappening() {
 
 // TODO: provide some products (you may overwrite the example)
 $products = [
-    ['name' => 'Your favourite drink', 'price' => 2.5],
+    ['name' => 'Tintin n the way', 'price' => 24.50],
+    ['name' => 'Haddock striding', 'price' => 22.50],
+    ['name' => 'Tintin astronaut',  'price' => 19.00],
+    ['name' => 'Tintin rocket', 'price' => 29.95],
+    ['name' => 'Snowy with a bone', 'price' => 19.99],
+    ['name' => 'T-shirt Haddock Wouah Blanc', 'price' => 34.95],
+    ['name' => 'Teapot', 'price' => 54.95],
+    ['name' => 'Tintin au Congo - Coffret Litho', 'price' => 99.95]
+
 ];
 
 $totalValue = 0;
