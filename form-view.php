@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css"
           rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css">
     <title>La Boutique Tintin</title>
 </head>
 <body>
@@ -27,7 +28,7 @@
         </ul>
     </nav>
     */ ?>
-    <form method="post">
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="email">E-mail:</label>
@@ -59,6 +60,20 @@
                     <input type="text" id="zipcode" name="zipcode" class="form-control">
                 </div>
             </div>
+            <div class="out_put">
+                <?php
+                echo "<h3>Your Input:</h3>";
+                echo $email;
+                echo "<br>";
+                echo $street;
+                echo "<br>";
+                echo $streetnumber;
+                echo "<br>";
+                echo $city;
+                echo "<br>";
+                echo $zipcode;
+                ?></div>
+
         </fieldset>
 
         <fieldset>

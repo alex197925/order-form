@@ -21,6 +21,41 @@ function whatIsHappening() {
     var_dump($_SESSION);
 }
 
+
+// Form Validation
+// define variables and set to empty values
+$email = $street = $streetnumber = $city = $zipcode = "";
+
+if($_SERVER["REQUEST_METHOD"] === "POST") {
+    $email = test_input($_POST["email"]);
+    $street = test_input($_POST["street"]);
+    $streetnumber = test_input($_POST["streetnumber"]);
+    $city = test_input($_POST["city"]);
+    $zipcode = test_input($_POST["zipcode"]);
+
+}
+
+
+
+
+
+function test_input($data) {
+    $data = trim($data); //Removes whitespace or other predefined characters from the right side of a string
+    $data = stripcslashes($data); //The stripslashes() function removes backslashes
+    $data = htmlspecialchars($data); //The htmlspecialchars() function converts some predefined characters to HTML entities
+    return $data;
+}
+
+
+
+
+
+
+
+
+
+
+
 // TODO: provide some products (you may overwrite the example)
 $products = [
     ['name' => 'Tintin n the way', 'price' => 24.50],
