@@ -33,16 +33,17 @@
             <div class="form-group col-md-6">
                 <label for="email">E-mail:</label>
                 <span>
-                    <?php
-                    if (isset($_POST['email']) && !empty($_POST['email'])) {
+
+<!--                    Check email input-->
+                   <?php
+               if (!empty($_POST['email'])) {
                         $emailErr = $_POST['email'];
-                        if (filter_var($emailErr, FILTER_VALIDATE_EMAIL)) {
-                            echo " That's a valid Email address";
-                        }else{
-                            echo "<p>Not a valid Email address</p>";
-                        }
+                       $emailErr = filter_var($emailErr, FILTER_VALIDATE_EMAIL);
+                    if ($emailErr === false) {
+                        echo "Not a valid Email address";
                     }
-                    ?>
+                    }
+                  ?>
 
                 </span>
                 <input type="text" id="email" name="email" class="form-control"/>
@@ -70,6 +71,19 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="zipcode">Zipcode</label>
+<!--                    Check Zipcode input-->
+                    <span>
+                        <?php
+                    if (!empty($_POST['zipcode'])) {
+                        $zipcode = $_POST['zipcode'];
+                        $zipcode = filter_var($zipcode, FILTER_VALIDATE_INT);
+                        if ($zipcode === false) {
+                            echo " : Invalid Integer";
+                        }
+                    }  ?>
+                    </span>
+
+
                     <input type="text" id="zipcode" name="zipcode" class="form-control">
                 </div>
             </div>
