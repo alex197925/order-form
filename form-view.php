@@ -63,15 +63,26 @@
             <div class="out_put">
                 <?php
                 echo "<h3>Your Input:</h3>";
-                echo $email;
+                if (isset($email)) {
+                    echo $email ;
+                }
                 echo "<br>";
-                echo $street;
+
+                if (isset($street)) {
+                    echo $street;
+                }
                 echo "<br>";
-                echo $streetnumber;
+                if (isset($streetnumber)) {
+                    echo $streetnumber;
+                }
                 echo "<br>";
-                echo $city;
-                echo "<br>";
-                echo $zipcode;
+                if (isset($city)) {
+                    echo $city;
+                }
+                if (isset($zipcode)) {
+                    echo $zipcode;
+                }
+
                 ?></div>
 
         </fieldset>
