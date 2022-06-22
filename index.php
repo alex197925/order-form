@@ -10,7 +10,8 @@ declare(strict_types=1);
 session_start();
 
 // Use this function when you need to need an overview of these variables
-function whatIsHappening() {
+function whatIsHappening()
+{
     echo '<h2>$_GET</h2>';
     var_dump($_GET);
     echo '<h2>$_POST</h2>';
@@ -21,6 +22,9 @@ function whatIsHappening() {
     var_dump($_SESSION);
 }
 
+//whatIsHappening();
+
+
 
 
 // Form Validation
@@ -29,14 +33,14 @@ $email = $street = $streetnumber = $city = $zipcode = "";
 // define variables Error and set to empty values
 $emailErr = $streetErr = $streetnumberErr = $cityErr = $zipcodeErr = "";
 
-if($_SERVER["REQUEST_METHOD"] === "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 //    Check Email Input
     if (empty($_POST["email"])) {
         $emailErr = "<div class='alert alert-danger'>Email is required</div>";
     } else {
         $email = test_input($_POST["email"]);
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $emailErr =  "<div class='alert alert-danger'>Invalid email format</div>";
+            $emailErr = "<div class='alert alert-danger'>Invalid email format</div>";
         }
     }
     if (empty($_POST["street"])) {
@@ -53,8 +57,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         $cityErr = "<div class='alert alert-danger'>City is required</div>";
     } else {
         $city = test_input($_POST["city"]);
-        if (!preg_match("/^[a-zA-Z' ]*$/", $city )) {
-            $cityErr= "<div class='alert alert-danger'>Invalid City</div>";
+        if (!preg_match("/^[a-zA-Z' ]*$/", $city)) {
+            $cityErr = "<div class='alert alert-danger'>Invalid City</div>";
         }
     }
 
@@ -64,7 +68,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
         $streetnumber = test_input($_POST["zipcode"]);
         if (preg_match('/^[0-9]{5}([- ]?[0-9]{4})?$/', $street)) {
-            $streetnumberErr =  "<div class='alert alert-danger'>Street is checked</div>";
+            $streetnumberErr = "<div class='alert alert-danger'>Street is checked</div>";
         }
     }
 
@@ -79,63 +83,74 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-function test_input($data) {
+function test_input($data)
+{
     $data = trim($data); //Removes whitespace or other predefined characters from the right side of a string
     $data = stripcslashes($data); //The stripslashes() function removes backslashes
     $data = htmlspecialchars($data); //The htmlspecialchars() function converts some predefined characters to HTML entities
     return $data;
 }
 
-
-
 // TODO: provide some products (you may overwrite the example)
 $products = [
-    ['name' => 'Tintin n the way', 'price' => 24.50],
-    ['name' => 'Haddock striding', 'price' => 22.50],
-    ['name' => 'Tintin astronaut',  'price' => 19.00],
-    ['name' => 'Tintin rocket', 'price' => 29.95],
-    ['name' => 'Snowy with a bone', 'price' => 19.99],
-    ['name' => 'T-shirt Haddock Wouah Blanc', 'price' => 34.95],
+    ['name' => 'Tintin n the way', 'price' => 10],
+    ['name' => 'Haddock striding', 'price' => 15],
+    ['name' => 'Tintin astronaut', 'price' => 20],
+    ['name' => 'Tintin rocket', 'price' => 30],
+    ['name' => 'Snowy with a bone', 'price' => 35],
+    ['name' => 'T-shirt Haddock Wouah Blanc', 'price' => 76],
     ['name' => 'Teapot', 'price' => 54.95],
-    ['name' => 'Tintin au Congo - Coffret Litho', 'price' => 99.95]
+    ['name' => 'Tintin au Congo - Coffret Litho', 'price' => 100],
 
 ];
-
-$totalValue = 0;
-$productsName = [];
-$productsPrice = [];
-
-
-
-
-
-
-function validate()
+////var_dump($products);
+function selectedProducts($products)
 {
-    // TODO: This function will send a list of invalid fields back
-    return [];
-}
-
-function handleForm()
-{
-    // TODO: form related tasks (step 1)
-
-    // Validation (step 2)
-    $invalidFields = validate();
-    if (!empty($invalidFields)) {
-        // TODO: handle errors
-    } else {
-        // TODO: handle successful submission
+    if (isset($_POST["products"])) {
+        $totalPrice = 0;
+        foreach ($_POST['products'] as $key  => $product) {
+//            var_dump($product);
+            $selection = implode(": ", $products[$key]);
+            echo $selection . "<br>";
+            $price = $products[$product]['price'];
+            echo $price;
+            $totalPrice += $price;
+        }
+        return $totalPrice;
     }
 }
 
-// TODO: replace this if by an actual check
-$formSubmitted = false;
-if ($formSubmitted) {
-    handleForm();
-}
+$totalValue = selectedProducts($products);
 
-require 'form-view.php';
+
+
+    function validate()
+    {
+        // TODO: This function will send a list of invalid fields back
+        return [];
+    }
+
+    function handleForm()
+    {
+        // TODO: form related tasks (step 1)
+
+        // Validation (step 2)
+        $invalidFields = validate();
+        if (!empty($invalidFields)) {
+            // TODO: handle errors
+        } else {
+            // TODO: handle successful submission
+        }
+    }
+
+// TODO: replace this if by an actual check
+    if (isset($_POST["submit"])) {
+
+    }
+
+
+    require 'form-view.php';
+
 
 
 
