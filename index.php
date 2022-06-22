@@ -112,8 +112,7 @@ function selectedProducts($products)
 //            var_dump($product);
             $selection = implode(": ", $products[$key]);
             echo $selection . "<br>";
-            $price = $products[$product]['price'];
-            echo $price;
+            $price = $products[$key]['price'];
             $totalPrice += $price;
         }
         return $totalPrice;
