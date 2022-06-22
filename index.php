@@ -22,22 +22,62 @@ function whatIsHappening() {
 }
 
 
+
 // Form Validation
 // define variables and set to empty values
 $email = $street = $streetnumber = $city = $zipcode = "";
+// define variables Error and set to empty values
+$emailErr = $streetErr = $streetnumberErr = $cityErr = $zipcodeErr = "";
 
 if($_SERVER["REQUEST_METHOD"] === "POST") {
-    $email = test_input($_POST["email"]);
-    $street = test_input($_POST["street"]);
-    $streetnumber = test_input($_POST["streetnumber"]);
-    $city = test_input($_POST["city"]);
-    $zipcode = test_input($_POST["zipcode"]);
+//    Check Email Input
+    if (empty($_POST["email"])) {
+        $emailErr = "<div class='alert alert-danger'>Email is required</div>";
+    } else {
+        $email = test_input($_POST["email"]);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailErr =  "<div class='alert alert-danger'>Invalid email format</div>";
+        }
+    }
+    if (empty($_POST["street"])) {
+//        Check Street input
+        $streetErr = "<div class='alert alert-danger'>Street is required</div>";
+    } else {
+        $street = test_input($_POST["street"]);
+        if (!preg_match("/^[a-zA-Z' ]*$/", $street)) {
+            $streetErr = "<div class='alert alert-danger'>Only letters and white space allowed</div>";
+        }
+    }
+    if (empty($_POST["city"])) {
+//        Check City input
+        $cityErr = "<div class='alert alert-danger'>City is required</div>";
+    } else {
+        $city = test_input($_POST["city"]);
+        if (!preg_match("/^[a-zA-Z' ]*$/", $city )) {
+            $cityErr= "<div class='alert alert-danger'>Invalid City</div>";
+        }
+    }
 
+    if (empty($_POST["streetnumber"])) {
+//        Check street number input
+        $streetnumberErr = "<div class='alert alert-danger'>Street is required</div>";
+    } else {
+        $streetnumber = test_input($_POST["zipcode"]);
+        if (preg_match('/^[0-9]{5}([- ]?[0-9]{4})?$/', $street)) {
+            $streetnumberErr =  "<div class='alert alert-danger'>Street is checked</div>";
+        }
+    }
+
+    if (empty($_POST["zipcode"])) {
+//        Check Zip Code input
+        $zipcodeErr = "<div class='alert alert-danger'>Zipcode is required</div>";
+    } else {
+        $zipcode = test_input($_POST["zipcode"]);
+        if (preg_match('/^[0-9]{10}$/', $zipcode)) {
+            $zipcodeErr = "<div class='alert alert-danger'>Zipcode is checked</div>";
+        }
+    }
 }
-
-
-
-
 
 function test_input($data) {
     $data = trim($data); //Removes whitespace or other predefined characters from the right side of a string
@@ -45,14 +85,6 @@ function test_input($data) {
     $data = htmlspecialchars($data); //The htmlspecialchars() function converts some predefined characters to HTML entities
     return $data;
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -70,6 +102,13 @@ $products = [
 ];
 
 $totalValue = 0;
+$productsName = [];
+$productsPrice = [];
+
+
+
+
+
 
 function validate()
 {
@@ -97,3 +136,6 @@ if ($formSubmitted) {
 }
 
 require 'form-view.php';
+
+
+
